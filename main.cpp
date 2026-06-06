@@ -1,12 +1,10 @@
 #include <iostream>
-#include <Metal/Metal.hpp>
+#include "Metal/Metal.hpp"
 
 #define N 10000000
 
 int main(int argc, const char * argv[]) {
-    
-//    std::vector<float *> A();
-    
+     
     MTL::Device* device = MTL::CreateSystemDefaultDevice();
     if (device == nullptr) {
         throw std::runtime_error("Metal is not supported on this device\n");
@@ -21,14 +19,20 @@ int main(int argc, const char * argv[]) {
     // When you call device->newDefaultLibrary(), you are instructing the GPU to search the application bundle, locate default.metallib, and load all of your compiled kernel functions into memory so they can be executed.
     
     // retrieve the compiled library
-    MTL::Library* library = device->newDefaultLibrary();
+    NS::Error* error = nullptr;
+    auto path = NS::String::string("default.metallib", NS::UTF8StringEncoding);
+    MTL::Library* library = device->newLibrary(path, &error);
+
+    if (!library) {
+        printf("Failed to load library: %s\n", error->localizedDescription()->utf8String());
+    }
     
     // Extract the kernel function by its exact name in the .metal file
     NS::String* func_name = NS::String::string("vector_add", NS::UTF8StringEncoding);
     MTL::Function* func = library->newFunction(func_name); // this retrieves in metal asm, we need machine code
     
     // compile the metal asm into machine code
-    NS::Error* error = nullptr;
+    // NS::Error* error = nullptr;
     MTL::ComputePipelineState* pipeline = device->newComputePipelineState(func, &error);
     
     // Create buffers
