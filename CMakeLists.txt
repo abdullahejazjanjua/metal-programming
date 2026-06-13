@@ -27,7 +27,7 @@ target_link_libraries(metal-programming PRIVATE
 
 add_custom_command(
     TARGET metal-programming POST_BUILD
-    COMMAND xcrun -sdk macosx metal -c ${CMAKE_CURRENT_SOURCE_DIR}/vecAdd-kernel.metal -o ${CMAKE_CURRENT_BINARY_DIR}/vecAdd-kernel.air
-    COMMAND xcrun -sdk macosx metallib ${CMAKE_CURRENT_BINARY_DIR}/vecAdd-kernel.air -o ${CMAKE_CURRENT_BINARY_DIR}/default.metallib
+    COMMAND xcrun -sdk macosx metal -c ${CMAKE_CURRENT_SOURCE_DIR}/kernels/*.metal -o ${CMAKE_CURRENT_BINARY_DIR}/*.air
+    COMMAND xcrun -sdk macosx metallib ${CMAKE_CURRENT_BINARY_DIR}/*.air -o ${CMAKE_CURRENT_BINARY_DIR}/default.metallib
     COMMENT "Compiling Metal Shaders into default.metallib..."
 )

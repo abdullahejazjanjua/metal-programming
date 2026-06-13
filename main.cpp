@@ -22,7 +22,6 @@ int main(int argc, const char * argv[]) {
     NS::Error* error = nullptr;
     auto path = NS::String::string("default.metallib", NS::UTF8StringEncoding);
     MTL::Library* library = device->newLibrary(path, &error);
-
     if (!library) {
         printf("Failed to load library: %s\n", error->localizedDescription()->utf8String());
     }
