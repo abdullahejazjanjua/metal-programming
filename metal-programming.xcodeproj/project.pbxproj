@@ -31,9 +31,22 @@
 		9EC93A042FD3C26E00F90B1B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		9E300BA82FDD1E02003AB014 /* Exceptions for "metal-programming" folder in "Compile Sources" phase from "metal-programming" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 9EC938CD2FD3BFDD00F90B1B /* Sources */;
+			membershipExceptions = (
+				include/mm.hpp,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9EC938D32FD3BFDD00F90B1B /* metal-programming */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9E300BA82FDD1E02003AB014 /* Exceptions for "metal-programming" folder in "Compile Sources" phase from "metal-programming" target */,
+			);
 			path = "metal-programming";
 			sourceTree = "<group>";
 		};
@@ -268,7 +281,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = "$(HOME)/Library/metal-cpp";
+				HEADER_SEARCH_PATHS = (
+					"$(HOME)/Library/metal-cpp",
+					"$(PROJECT_DIR)/include",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -277,7 +293,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = "$(HOME)/Library/metal-cpp";
+				HEADER_SEARCH_PATHS = (
+					"$(HOME)/Library/metal-cpp",
+					"$(PROJECT_DIR)/include",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
