@@ -73,10 +73,14 @@ void mm::launch_kernel(int num_threads) {
     compute_encoder->setBuffer(this->bufferMat3, 0, 2);
     compute_encoder->setBuffer(this->bufferShape, 0, 3);
     
-    MTL::Size gridSize = MTL::Size::Make(m, n, 1);
+    MTL::Size gridSize = MTL::Size::Make(
+        ((m + num_threads - 1) / num_threads),
+        ((n + num_threads - 1) / num_threads),
+        1
+    );
     MTL::Size threadgroupSize = MTL::Size::Make(num_threads, num_threads, 1);
     
-    compute_encoder->dispatchThreads(gridSize, threadgroupSize);
+    compute_encoder->dispatchThreadgroups(gridSize, threadgroupSize);
     compute_encoder->endEncoding();
     
     cmd_buffer->commit();
@@ -84,12 +88,10 @@ void mm::launch_kernel(int num_threads) {
 }
 
 void mm::debugger() {
-//    NS::AutoreleasePool* mem_pool = NS::AutoreleasePool::alloc()->init();
     
     this->cap_mag = MTL::CaptureManager::sharedCaptureManager();
     this->cap_desc = MTL::CaptureDescriptor::alloc()->init();;
     this->cap_desc->setCaptureObject(this->device_ptr);
-//    this->cap_desc->setDestination(MTL::CaptureDestinationGPUTraceDocument);
     
     
 }
