@@ -83,6 +83,31 @@ void mm::launch_kernel(int num_threads) {
     cmd_buffer->waitUntilCompleted();
 }
 
+void mm::debugger() {
+//    NS::AutoreleasePool* mem_pool = NS::AutoreleasePool::alloc()->init();
+    
+    this->cap_mag = MTL::CaptureManager::sharedCaptureManager();
+    this->cap_desc = MTL::CaptureDescriptor::alloc()->init();;
+    this->cap_desc->setCaptureObject(this->device_ptr);
+//    this->cap_desc->setDestination(MTL::CaptureDestinationGPUTraceDocument);
+    
+    
+}
+
+void mm::start_debugger() {
+    NS::Error* err;
+    if (!this->cap_mag->startCapture(this->cap_desc, &err)) {
+        std :: cerr << "Error: " << err->localizedDescription()->utf8String();
+    }
+}
+
+void mm::stop_debugger() {
+    this->cap_mag->stopCapture();
+    this->cap_desc->release();
+    this->cap_mag->release();
+}
+
+
 void mm::print() {
     float *data = static_cast<float*>(this->bufferMat3->contents());
     for (int i = 0; i < 10; i++) {

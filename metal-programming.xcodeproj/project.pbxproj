@@ -285,6 +285,7 @@
 					"$(HOME)/Library/metal-cpp",
 					"$(PROJECT_DIR)/include",
 				);
+				MTL_LANGUAGE_REVISION = UseDeploymentTarget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -297,6 +298,7 @@
 					"$(HOME)/Library/metal-cpp",
 					"$(PROJECT_DIR)/include",
 				);
+				MTL_LANGUAGE_REVISION = UseDeploymentTarget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

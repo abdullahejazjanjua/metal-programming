@@ -8,11 +8,17 @@ class mm {
 public:
     mm(MTL::Device* device_ptr, std::string shader_name);
     void make_shader(std::string shader_name);
+    void launch_kernel(int num_threads);
+    
     void allocate_buffers(unsigned int *shape);
     void generateRandomFloatData(MTL::Buffer* buf);
-    void launch_kernel(int num_threads);
+    
     void print();
     void verify_results();
+    
+    void debugger();
+    void start_debugger();
+    void stop_debugger();
     
 private:
     MTL::Device *device_ptr;
@@ -26,6 +32,9 @@ private:
     MTL::Buffer* bufferMat3;
     
     MTL::Buffer* bufferShape;
+    
+    MTL::CaptureManager* cap_mag;
+    MTL::CaptureDescriptor* cap_desc;
 };
 
 
